@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Detail, Home, NewTopic, Admin } from "./container";
+import { Detail, Home, NewTopic, Admin, NewCate } from "./container";
 import { Header } from "./components";
 import "./App.less";
 
@@ -15,6 +15,9 @@ const App: FC = () => (
           </Route>
           <Route path="/new">
             <NewTopic />
+          </Route>
+          <Route path="/category">
+            <NewCate />
           </Route>
           <Route path="/admin">
             <Admin />

@@ -25,7 +25,7 @@ class List extends Component {
               </div>
               <Badge
                 className="site-badge-count-109"
-                count={109}
+                count={19}
                 style={{ backgroundColor: "#52c41a" }}
               />
             </div>

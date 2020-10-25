@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Tabs } from "antd";
+import { Button, Tabs, Tooltip } from "antd";
+import { Link } from "react-router-dom";
 import { List } from "../../components/";
 const { TabPane } = Tabs;
 
@@ -15,7 +16,15 @@ class Home extends Component<{}, CompState> {
     const { cateList } = this.state;
     return (
       <div>
-        <Tabs tabBarExtraContent={<Button type="text">New</Button>}>
+        <Tabs
+          tabBarExtraContent={
+            <Tooltip title="Create new Category">
+              <Link to="category">
+                <Button type="text">New</Button>
+              </Link>
+            </Tooltip>
+          }
+        >
           {cateList.map((cate) => (
             <TabPane tab={cate} key={cate}>
               <List></List>
