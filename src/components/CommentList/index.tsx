@@ -18,7 +18,7 @@ class CommentList extends Component {
               author={<a>Leeon Lee</a>}
               avatar={
                 <Avatar
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png#"
                   alt="Han Solo"
                 />
               }

@@ -16,7 +16,12 @@ class Header extends Component {
             <Dropdown
               overlay={
                 <Menu>
-                  <Menu.Item>Post News</Menu.Item>
+                  <Menu.Item>
+                    <Link to="new">Post News</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to="/admin">Manage News</Link>
+                  </Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
