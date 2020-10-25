@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs } from "antd";
+import { Button, Tabs } from "antd";
 import { List } from "../../components/";
 const { TabPane } = Tabs;
 
@@ -15,7 +15,7 @@ class Home extends Component<{}, CompState> {
     const { cateList } = this.state;
     return (
       <div>
-        <Tabs>
+        <Tabs tabBarExtraContent={<Button type="text">New</Button>}>
           {cateList.map((cate) => (
             <TabPane tab={cate} key={cate}>
               <List></List>

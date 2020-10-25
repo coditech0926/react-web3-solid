@@ -6,9 +6,9 @@ import "./App.less";
 
 const App: FC = () => (
   <div className="root-container">
-    <Header></Header>
-    <div className="wrapper">
-      <Router>
+    <Router>
+      <Header></Header>
+      <div className="wrapper">
         <Switch>
           <Route path="/detail">
             <Detail />
@@ -20,8 +20,8 @@ const App: FC = () => (
             <Home />
           </Route>
         </Switch>
-      </Router>{" "}
-    </div>
+      </div>
+    </Router>
   </div>
 );
 

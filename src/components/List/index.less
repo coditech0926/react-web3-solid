@@ -1,14 +1,17 @@
 .news-list {
   .news-item {
     display: flex;
-    height: 60px;
-    padding-left: 20px;
     align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 20px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
   }
 
   .news-content {
+    width: 100%;
+    color: rgba(0, 0, 0, .85);
     margin-left: 20px;
   }
 
@@ -27,5 +30,9 @@
       font-size: 12px;
     }
 
+  }
+
+  .list-pagination {
+    margin-top: 10px;
   }
 }
