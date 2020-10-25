@@ -1,6 +1,7 @@
-import Detail from "./Detail";
 import Home from "./Home";
-import NewTopic from "./NewTopic";
 import Admin from "./Admin";
+import Detail from "./Detail";
+import NewTopic from "./NewTopic";
+import NewCate from "./NewCate";
 
-export { Detail, Home, NewTopic, Admin };
+export { Detail, Home, NewTopic, Admin, NewCate };

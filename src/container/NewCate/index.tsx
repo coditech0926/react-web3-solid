@@ -3,7 +3,7 @@ import { Form, Input, Button, Select } from "antd";
 import "./index.less";
 const { Option } = Select;
 const cateList: Array<string> = ["Technology", "Finance", "Politics"];
-class NewTopic extends Component {
+class NewCate extends Component {
   render() {
     const layout = {
       labelCol: {
@@ -31,51 +31,34 @@ class NewTopic extends Component {
           // onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label="Title"
-            name="title"
+            label="Name"
+            name="name"
             rules={[
               {
                 required: true,
-                message: "Please input the news title",
+                message: "Please input the news name",
               },
             ]}
           >
-            <Input placeholder="news title" />
+            <Input placeholder="category name" />
           </Form.Item>
 
           <Form.Item
-            label="Category"
-            name="category"
+            label="Infomation"
+            name="infomation"
             rules={[
               {
                 required: true,
-                message: "Please select the category",
+                message: "Please input the category detail",
               },
             ]}
           >
-            <Select style={{ width: 120 }}>
-              {cateList.map((item) => (
-                <Option value={item}>{item}</Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Detail"
-            name="detail"
-            rules={[
-              {
-                required: true,
-                message: "Please input the news detail",
-              },
-            ]}
-          >
-            <Input.TextArea showCount placeholder="news detail" />
+            <Input.TextArea showCount placeholder="category detail" />
           </Form.Item>
 
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
-              Post Now
+              Create Category Now
             </Button>
           </Form.Item>
         </Form>
@@ -84,4 +67,4 @@ class NewTopic extends Component {
   }
 }
 
-export default NewTopic;
+export default NewCate;
