@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.6",
     "antd": "^4.7.2",
     "craco-less": "^1.17.0",
+    "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
