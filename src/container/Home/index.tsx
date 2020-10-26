@@ -10,7 +10,7 @@ interface CompState {
 
 class Home extends Component<{}, CompState> {
   state: CompState = {
-    cateList: ["Technology", "Finance", "Politics"],
+    cateList: ["Recent News", "Technology", "Finance", "Politics"],
   };
   render() {
     const { cateList } = this.state;

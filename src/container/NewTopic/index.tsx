@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import "./index.less";
 const { Option } = Select;
 const cateList: Array<string> = ["Technology", "Finance", "Politics"];
@@ -17,6 +18,23 @@ class NewTopic extends Component {
       wrapperCol: {
         offset: 8,
         span: 16,
+      },
+    };
+    const uploadProps = {
+      name: "file",
+      action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+      headers: {
+        authorization: "authorization-text",
+      },
+      onChange(info: any) {
+        if (info.file.status !== "uploading") {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === "done") {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === "error") {
+          message.error(`${info.file.name} file upload failed.`);
+        }
       },
     };
     return (
@@ -71,6 +89,12 @@ class NewTopic extends Component {
             ]}
           >
             <Input.TextArea showCount placeholder="news detail" />
+          </Form.Item>
+
+          <Form.Item label="Attachment" name="attachment">
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
           </Form.Item>
 
           <Form.Item {...tailLayout}>
