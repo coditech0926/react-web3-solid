@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Button } from "antd";
 import { CommentList } from "../../components";
+import { PaperClipOutlined } from "@ant-design/icons";
 import "./index.less";
 class Detail extends Component {
   render() {
@@ -21,6 +23,11 @@ Both the UF2 file and the game simulator come loaded with six sample games. The 
         </div>
         <div className="detail-content">{content}</div>
 
+        <div className="detail-attachment">
+          <Button type="text" icon={<PaperClipOutlined />}>
+            attachment.gz
+          </Button>
+        </div>
         <CommentList />
       </div>
     );
