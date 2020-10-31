@@ -19,10 +19,10 @@ class Home extends Component<{}, CompState> {
     return (
       <div className="home-container">
         <div className="action-container">
-          <Select defaultValue="Inrupt" style={{ width: 120 }}>
+          {/* <Select defaultValue="Inrupt" style={{ width: 120 }}>
             <Option value="Inrupt">Inrupt.net</Option>
             <Option value="solidProject">solidProject</Option>
-          </Select>
+          </Select> */}
 
           <Search
             placeholder="search for news"

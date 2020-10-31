@@ -11,7 +11,7 @@ class CommentList extends Component {
       <div className="comment-list">
         <div className="comment-header">Comment</div>
         <div className="comment-content">
-          {[0, 1, 2, 3, 4].map((item) => (
+          {[0].map((item) => (
             <Comment
               key={item}
               // actions={actions}

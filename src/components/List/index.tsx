@@ -7,8 +7,8 @@ class List extends Component {
   render() {
     return (
       <div className="news-list">
-        {[0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => (
-          <Link to="/detail">
+        {[0].map((item) => (
+          <Link to="/detail/2" key={item}>
             <div className="news-item" key={item}>
               <Avatar
                 style={{ backgroundColor: "#87d068" }}
@@ -25,7 +25,7 @@ class List extends Component {
               </div>
               <Badge
                 className="site-badge-count-109"
-                count={19}
+                count={1}
                 style={{ backgroundColor: "#52c41a" }}
               />
             </div>

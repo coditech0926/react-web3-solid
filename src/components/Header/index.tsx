@@ -6,7 +6,7 @@ import { withWebId } from "@inrupt/solid-react-components";
 import "./index.less";
 class Header extends Component<{ webId: string }, {}> {
   render() {
-    const { webId, ...rest } = this.props;
+    const { webId } = this.props;
 
     return (
       <div className="header">
