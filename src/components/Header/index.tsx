@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Menu, Dropdown } from "antd";
-import { HomeOutlined, EditOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import "./index.less";
 class Header extends Component {
   render() {

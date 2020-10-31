@@ -15,7 +15,7 @@ class CommentList extends Component {
             <Comment
               key={item}
               // actions={actions}
-              author={<a>Leeon Lee</a>}
+              author={<span>Leeon Lee</span>}
               avatar={
                 <Avatar
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png#"

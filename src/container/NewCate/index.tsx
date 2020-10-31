@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Select } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  // Select
+} from "antd";
 import "./index.less";
-const { Option } = Select;
-const cateList: Array<string> = ["Technology", "Finance", "Politics"];
+// const { Option } = Select;
+// const cateList: Array<string> = ["Technology", "Finance", "Politics"];
 class NewCate extends Component {
   render() {
     const layout = {

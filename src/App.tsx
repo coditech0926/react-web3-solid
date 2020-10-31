@@ -1,12 +1,13 @@
 import React, { FC } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Detail, Home, NewTopic, Admin, NewCate } from "./container";
-import { Header } from "./components";
+// import { Detail, Home, NewTopic, Admin, NewCate } from "./container";
+// import { Header } from "./components";
+import Route from "./routes";
 import "./App.less";
 
 const App: FC = () => (
   <div className="root-container">
-    <Router>
+    <Route />
+    {/* <Router>
       <Header></Header>
       <div className="wrapper">
         <Switch>
@@ -27,7 +28,7 @@ const App: FC = () => (
           </Route>
         </Switch>
       </div>
-    </Router>
+    </Router> */}
   </div>
 );
 
