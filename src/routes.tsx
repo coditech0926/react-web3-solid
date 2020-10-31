@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Detail, Home, NewTopic, Admin, NewCate, Login } from "./container";
 import { PrivateLayout, NotLoggedLayout } from "./layouts";
+import { Header } from "./components";
 const routesList = [
   {
     id: "detail",
@@ -32,10 +33,17 @@ const routesList = [
 
 const Routes = () => (
   <Router>
-    <Switch>
-      <NotLoggedLayout component={Login} path="/login" exact></NotLoggedLayout>
-      <PrivateLayout path="/" routes={routesList}></PrivateLayout>
-    </Switch>
+    <Header></Header>
+    <div className="wrapper">
+      <Switch>
+        <NotLoggedLayout
+          component={Login}
+          path="/login"
+          exact
+        ></NotLoggedLayout>
+        <PrivateLayout path="/" routes={routesList}></PrivateLayout>
+      </Switch>
+    </div>
   </Router>
 );
 
