@@ -7,8 +7,10 @@
     "@craco/craco": "^5.7.0",
     "@inrupt/solid-client": "^0.6.1",
     "@inrupt/solid-client-authn-browser": "^0.2.2",
+    "@inrupt/solid-react-components": "^0.5.5",
     "@inrupt/solid-ui-react": "^1.4.0",
     "@inrupt/vocab-common-rdf": "^0.6.2",
+    "@solid/query-ldflex": "^2.11.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -24,7 +26,9 @@
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "typescript": "^3.7.5"
+    "solid-auth-client": "^2.5.2",
+    "typescript": "^3.7.5",
+    "url-parse": "^1.4.7"
   },
   "scripts": {
     "start": "craco start",
