@@ -1,3 +1,3 @@
+import Category from "./category";
 
-
-export default {};
+export { Category };

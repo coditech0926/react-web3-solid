@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  // Select
-} from "antd";
+import { Form, Input, Button, message } from "antd";
+import { Category } from "../../services";
+import { withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 import "./index.less";
-// const { Option } = Select;
-// const cateList: Array<string> = ["Technology", "Finance", "Politics"];
-class NewCate extends Component {
+
+class NewCate extends Component<RouteComponentProps> {
+  onSave = async (values) => {
+    await Category.create(values);
+    message.success("save successfully !");
+    this.props.history.push("/");
+  };
+
   render() {
     const layout = {
       labelCol: {
@@ -32,8 +35,7 @@ class NewCate extends Component {
           initialValues={{
             remember: true,
           }}
-          // onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
+          onFinish={this.onSave}
         >
           <Form.Item
             label="Name"
@@ -50,7 +52,7 @@ class NewCate extends Component {
 
           <Form.Item
             label="Infomation"
-            name="infomation"
+            name="description"
             rules={[
               {
                 required: true,
@@ -72,4 +74,4 @@ class NewCate extends Component {
   }
 }
 
-export default NewCate;
+export default withRouter(NewCate);
