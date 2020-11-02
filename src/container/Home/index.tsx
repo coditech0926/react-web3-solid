@@ -1,19 +1,32 @@
 import React, { Component } from "react";
-import { Button, Tabs, Tooltip, Input, Select, Badge } from "antd";
+import { Button, Tabs, Tooltip, Input, Badge } from "antd";
 import { Link } from "react-router-dom";
 import { List } from "../../components/";
+import { Category } from "../../services";
 import "./index.less";
 const { TabPane } = Tabs;
-const { Option } = Select;
 const { Search } = Input;
 interface CompState {
-  cateList: Array<string>;
+  cateList: { url: string; name: string; description: string }[];
 }
 
-class Home extends Component<{}, CompState> {
+class Home extends Component<{ webId: string }, CompState> {
   state: CompState = {
-    cateList: ["Recent News", "Technology", "Finance", "Politics"],
+    cateList: [],
   };
+
+  getCateList = async () => {
+    let cateList = await Category.list();
+    console.log(cateList);
+    this.setState({
+      cateList,
+    });
+  };
+
+  componentDidMount() {
+    this.getCateList();
+  }
+
   render() {
     const { cateList } = this.state;
     return (
@@ -42,15 +55,15 @@ class Home extends Component<{}, CompState> {
           {cateList.map((cate) => (
             <TabPane
               tab={
-                cate === "Finance" ? (
+                cate.name === "Finance" ? (
                   <Badge count={9}>
-                    <div className="tab-content">{cate}</div>
+                    <div className="tab-content">{cate.name}</div>
                   </Badge>
                 ) : (
-                  cate
+                  cate.name
                 )
               }
-              key={cate}
+              key={cate.url}
             >
               <List></List>
             </TabPane>

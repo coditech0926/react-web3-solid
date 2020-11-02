@@ -13,12 +13,13 @@ class Cate {
     );
     Category.at(datasets);
   }
-  list = async () => {
+  list = async (): Promise<any> => {
     const list = await Category.from(datasets).all();
-    return list.map((item) => item.getAttributes());
+    const data = list.map((item) => item.getAttributes());
+    return data;
   };
 
-  create = async (values: { name: String; description: String }) => {
+  create = async (values: { name: string; description: string }) => {
     await Category.create(values);
   };
 }
