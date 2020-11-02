@@ -27,6 +27,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "solid-auth-client": "^2.5.2",
+    "soukai": "^0.3.0",
+    "soukai-solid": "^0.3.0",
     "styled-components": "^5.2.1",
     "typescript": "^3.7.5",
     "url-parse": "^1.4.7"
