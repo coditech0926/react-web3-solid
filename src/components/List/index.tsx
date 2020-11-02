@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Avatar, Badge, Pagination } from "antd";
+import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { News } from "../../services";
@@ -34,7 +34,6 @@ class List extends Component<CompProps, CompState> {
 
   render() {
     const { newsList } = this.state;
-    console.log("object.", newsList);
     return (
       <div className="news-list">
         {newsList.map((item) => (
@@ -59,7 +58,6 @@ class List extends Component<CompProps, CompState> {
             </div>
           </Link>
         ))}
-        <Pagination className="list-pagination" defaultCurrent={1} total={30} />
       </div>
     );
   }
