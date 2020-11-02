@@ -1,10 +1,35 @@
 import React, { Component } from "react";
 import { Button } from "antd";
 import { CommentList } from "../../components";
+import { withRouter } from "react-router-dom";
 import { PaperClipOutlined } from "@ant-design/icons";
+import { RouteComponentProps } from "react-router";
+import * as qs from "query-string";
+import { News } from "../../services";
 import "./index.less";
-class Detail extends Component {
+
+interface CompProps extends RouteComponentProps {
+  webId: string;
+}
+
+class Detail extends Component<CompProps> {
+  state: {
+    source: any;
+  } = {
+    source: qs.parse(window.location.search),
+  };
+  getDetail = async () => {
+    const url: any = qs.parse(window.location.search);
+    const data = await News.detail(url);
+  };
+
+  componentDidMount() {
+    this.getDetail();
+  }
+
   render() {
+    const { source } = this.state;
+    const { webId } = this.props;
     const content = `
 Microsoft TileCode is a game creation app that allows you to design and play games directly on low-cost gaming handhelds or in a web browser. TileCode games are similar to board games with pieces that can move from one tile of the board to a nearby tile. 
           
@@ -28,10 +53,10 @@ Both the UF2 file and the game simulator come loaded with six sample games. The 
             attachment.gz
           </Button>
         </div>
-        <CommentList />
+        <CommentList webId={webId} source={source.news} />
       </div>
     );
   }
 }
 
-export default Detail;
+export default withRouter(Detail);

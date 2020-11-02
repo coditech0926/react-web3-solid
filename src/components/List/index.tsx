@@ -9,6 +9,7 @@ interface CompProps {
 }
 interface CompState {
   newsList: {
+    url: string;
     name: string;
     author: string;
     articleBody: string;
@@ -34,21 +35,25 @@ class List extends Component<CompProps, CompState> {
 
   render() {
     const { newsList } = this.state;
+    console.log(newsList);
     return (
       <div className="news-list">
         {newsList.map((item) => (
-          <Link to="/detail/2" key={item.name}>
+          <Link
+            to={`/detail?news=${encodeURIComponent(item.url)}`}
+            key={item.name}
+          >
             <div className="news-item">
-              <Avatar
+              {/* <Avatar
                 style={{ backgroundColor: "#87d068" }}
                 icon={<UserOutlined />}
-              />
+              /> */}
               <div className="news-content">
                 <div className="desc">{item.name}</div>
-                <div className="news-info">
+                {/* <div className="news-info">
                   <strong className="author">Leeon</strong>
                   <div className="time">May '19</div>
-                </div>
+                </div> */}
               </div>
               <Badge
                 className="site-badge-count-109"

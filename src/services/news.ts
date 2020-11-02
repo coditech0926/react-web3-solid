@@ -27,8 +27,14 @@ class NewsService {
   }) => {
     await News.create({
       ...values,
-      createdAt: new Date(),
+      created: new Date(),
     });
+  };
+  detail = async (url: string) => {
+    if (!url) return;
+    let res = await News.at(url).all();
+    console.log("------", News.instance);
+    return News.instance;
   };
 }
 

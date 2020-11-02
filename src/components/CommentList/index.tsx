@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Comment, Tooltip, Avatar, Input, Button } from "antd";
+import { Comment, Tooltip, Avatar, Input, Button, message } from "antd";
+import { Comment as CommentService } from "../../services";
 import moment from "moment";
 import "./index.less";
 
@@ -7,33 +8,80 @@ const { TextArea } = Input;
 interface CompProps {
   type: string;
 }
-class CommentList extends Component<{}, {}> {
+class CommentList extends Component<{ source: string; webId: string }> {
+  state: {
+    commentList: {
+      url: string;
+      name: string;
+      profile: string;
+      source: string;
+      description: string;
+      created: Date;
+    }[];
+    commentIn: string;
+  } = {
+    commentList: [],
+    commentIn: "",
+  };
+
+  getComment = async () => {
+    const { source } = this.props;
+    let commentList = await CommentService.list(source);
+    this.setState({
+      commentList,
+    });
+  };
+
+  componentDidMount() {
+    this.getComment();
+  }
+  onChange = (val) => {
+    this.setState({
+      commentIn: val,
+    });
+  };
+  onComment = async () => {
+    const { commentIn } = this.state;
+    const { source, webId } = this.props;
+    const data = {
+      description: commentIn,
+      author: {
+        name: "Leeon",
+        profile: webId,
+      },
+      source,
+    };
+    await CommentService.create(data);
+
+    message.success("comment successfully");
+    this.setState({
+      commentIn: "",
+    });
+
+    this.getComment();
+  };
+
   render() {
+    const { commentList, commentIn } = this.state;
     return (
       <div className="comment-list">
         <div className="comment-header">Comment</div>
         <div className="comment-content">
-          {[0].map((item) => (
+          {commentList.map((item) => (
             <Comment
-              key={item}
-              // actions={actions}
-              author={<span>Leeon Lee</span>}
+              key={item.url}
+              author={<span>{item.name}</span>}
               avatar={
                 <Avatar
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png#"
                   alt="Han Solo"
                 />
               }
-              content={
-                <p>
-                  We supply a series of design principles, practical patterns
-                  and high quality design resources (Sketch and Axure), to help
-                  people create their product prototypes beautifully and
-                  efficiently.
-                </p>
-              }
+              content={<p>{item.description}</p>}
               datetime={
-                <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
+                <Tooltip
+                  title={moment(item.created).format("YYYY-MM-DD HH:mm:ss")}
+                >
                   <span>{moment().fromNow()}</span>
                 </Tooltip>
               }
@@ -44,9 +92,14 @@ class CommentList extends Component<{}, {}> {
           <TextArea
             placeholder="leave your comment"
             rows={4}
-            onChange={(val) => console.log(val)}
+            value={commentIn}
+            onChange={(e) => this.onChange(e.target.value)}
           />
-          <Button className="submit-btn" htmlType="submit" type="primary">
+          <Button
+            className="submit-btn"
+            onClick={() => this.onComment()}
+            type="primary"
+          >
             Add Comment
           </Button>
         </div>

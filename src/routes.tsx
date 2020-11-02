@@ -6,7 +6,7 @@ import { Header } from "./components";
 const routesList = [
   {
     id: "detail",
-    path: "/detail/:id",
+    path: "/detail",
     component: Detail,
   },
   {

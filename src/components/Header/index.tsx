@@ -1,16 +1,9 @@
-import React from //  useCallback, useEffect, Component
-"react";
+import React from "react"; //  useCallback, useEffect, Component
 import { Link } from "react-router-dom";
 import { Avatar, Menu, Dropdown } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import { withWebId } from "@inrupt/solid-react-components";
-// import {
-//   useThing,
-//   DatasetProvider,
-//   ThingProvider,
-//   Value,
-// } from "@inrupt/solid-ui-react";
-// import SolidData from "@solid/query-ldflex";
+
 import "./index.less";
 
 const Header = ({ webId }) => {
@@ -46,9 +39,9 @@ const Header = ({ webId }) => {
                   <Menu.Item>
                     <Link to="new">Post News</Link>
                   </Menu.Item>
-                  <Menu.Item>
+                  {/* <Menu.Item>
                     <Link to="/admin">Manage News</Link>
-                  </Menu.Item>
+                  </Menu.Item> */}
                 </Menu>
               }
               placement="bottomLeft"
