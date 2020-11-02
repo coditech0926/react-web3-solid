@@ -4,8 +4,10 @@ import moment from "moment";
 import "./index.less";
 
 const { TextArea } = Input;
-
-class CommentList extends Component {
+interface CompProps {
+  type: string;
+}
+class CommentList extends Component<{}, {}> {
   render() {
     return (
       <div className="comment-list">

@@ -1,3 +1,3 @@
 import Category from "./category";
-
-export { Category };
+import News from "./news";
+export { Category, News };

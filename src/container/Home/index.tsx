@@ -17,7 +17,6 @@ class Home extends Component<{ webId: string }, CompState> {
 
   getCateList = async () => {
     let cateList = await Category.list();
-    console.log(cateList);
     this.setState({
       cateList,
     });
@@ -52,6 +51,9 @@ class Home extends Component<{ webId: string }, CompState> {
             </Tooltip>
           }
         >
+          <TabPane tab="Recent">
+            <List type="recent" />
+          </TabPane>
           {cateList.map((cate) => (
             <TabPane
               tab={
@@ -65,7 +67,7 @@ class Home extends Component<{ webId: string }, CompState> {
               }
               key={cate.url}
             >
-              <List></List>
+              <List type={cate.name} />
             </TabPane>
           ))}
         </Tabs>

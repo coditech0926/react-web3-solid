@@ -1,10 +1,45 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 import { Form, Input, Button, Select, Upload, message } from "antd";
+import { Category, News } from "../../services";
 import { UploadOutlined } from "@ant-design/icons";
 import "./index.less";
 const { Option } = Select;
-const cateList: Array<string> = ["Technology", "Finance", "Politics"];
-class NewTopic extends Component {
+
+interface CompState {
+  cateList: { url: string; name: string; description: string }[];
+}
+
+interface CompProps extends RouteComponentProps {
+  webId: string;
+}
+
+class NewTopic extends Component<CompProps, CompState> {
+  state: CompState = {
+    cateList: [],
+  };
+
+  onSave = async (values) => {
+    const { webId } = this.props;
+    let data = {
+      ...values,
+      author: webId,
+    };
+    await News.create(data);
+    message.success("Add successfully !");
+    this.props.history.push("/");
+  };
+  getCateList = async () => {
+    let cateList = await Category.list();
+    this.setState({
+      cateList,
+    });
+  };
+  componentDidMount() {
+    this.getCateList();
+  }
+
   render() {
     const layout = {
       labelCol: {
@@ -22,7 +57,7 @@ class NewTopic extends Component {
     };
     const uploadProps = {
       name: "file",
-      action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+      action: "",
       headers: {
         authorization: "authorization-text",
       },
@@ -37,6 +72,7 @@ class NewTopic extends Component {
         }
       },
     };
+    const { cateList } = this.state;
     return (
       <div className="create-news">
         <Form
@@ -45,22 +81,9 @@ class NewTopic extends Component {
           initialValues={{
             remember: true,
           }}
-          // onFinish={onFinish}
+          onFinish={this.onSave}
           // onFinishFailed={onFinishFailed}
         >
-          <Form.Item
-            label="Title"
-            name="title"
-            rules={[
-              {
-                required: true,
-                message: "Please input the news title",
-              },
-            ]}
-          >
-            <Input placeholder="news title" />
-          </Form.Item>
-
           <Form.Item
             label="Category"
             name="category"
@@ -73,14 +96,28 @@ class NewTopic extends Component {
           >
             <Select style={{ width: 120 }}>
               {cateList.map((item) => (
-                <Option value={item}>{item}</Option>
+                <Option key={item.url} value={item.name}>
+                  {item.name}
+                </Option>
               ))}
             </Select>
+          </Form.Item>
+          <Form.Item
+            label="Title"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please input the news title",
+              },
+            ]}
+          >
+            <Input placeholder="news title" />
           </Form.Item>
 
           <Form.Item
             label="Detail"
-            name="detail"
+            name="articleBody"
             rules={[
               {
                 required: true,
@@ -108,4 +145,4 @@ class NewTopic extends Component {
   }
 }
 
-export default NewTopic;
+export default withRouter(NewTopic);
