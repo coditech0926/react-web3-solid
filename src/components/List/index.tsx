@@ -35,7 +35,6 @@ class List extends Component<CompProps, CompState> {
 
   render() {
     const { newsList } = this.state;
-    console.log(newsList);
     return (
       <div className="news-list">
         {newsList.map((item) => (

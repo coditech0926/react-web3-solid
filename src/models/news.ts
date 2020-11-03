@@ -2,7 +2,7 @@ import { FieldType } from "soukai";
 import { SolidModel } from "soukai-solid";
 
 export default class News extends SolidModel {
-  public static timestamps = false;
+  public static timestamps = ["createdAt"];
 
   public static rdfContexts = {
     schema: "https://schema.org/",
@@ -16,7 +16,6 @@ export default class News extends SolidModel {
     author: FieldType.String,
     articleBody: FieldType.String,
     category: FieldType.String,
-    created: FieldType.Date,
   };
 
   // public actions: WatchAction[] | undefined;

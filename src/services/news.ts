@@ -13,7 +13,7 @@ class NewsService {
     );
     News.at(datasets);
   }
-  list = async (type: string): Promise<any> => {
+  list = async (type?: string): Promise<any> => {
     let condition: {} = !type ? {} : { category: type };
     const list = await News.from(datasets).all(condition);
     const data = list.map((item) => item.getAttributes());
@@ -25,16 +25,25 @@ class NewsService {
     author: string;
     articleBody: string;
   }) => {
-    await News.create({
-      ...values,
-      created: new Date(),
-    });
+    await News.create(values);
   };
   detail = async (url: string) => {
     if (!url) return;
-    let res = await News.at(url).all();
-    console.log("------", News.instance);
-    return News.instance;
+    let list = await News.all();
+    for (const iterator of list) {
+      if (iterator.getAttributes().url === url) {
+        return iterator.getAttributes();
+      }
+    }
+    return {};
+  };
+  remove = async (url: string) => {
+    let list = await News.all();
+    for (const iterator of list) {
+      if (iterator.getAttributes().url === url) {
+        await iterator.delete();
+      }
+    }
   };
 }
 

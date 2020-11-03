@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
   withAuthorization,
@@ -7,11 +7,11 @@ import {
 } from "@inrupt/solid-react-components";
 
 const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
-  const checkPermissions = useCallback(async () => {}, [webId]);
+  // const checkPermissions = useCallback(async () => {}, [webId]);
 
-  useEffect(() => {
-    if (webId) checkPermissions();
-  }, [webId]);
+  // useEffect(() => {
+  //   if (webId) checkPermissions();
+  // }, [webId]);
 
   return (
     <React.Fragment>

@@ -1,21 +1,52 @@
 import React, { Component } from "react";
-import { Button, Pagination } from "antd";
+import { Button, message, Popconfirm } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { News } from "../../services";
 import "./index.less";
-class Admin extends Component {
+interface CompState {
+  newsList: {
+    url: string;
+    name: string;
+    author: string;
+    articleBody: string;
+    category: string;
+  }[];
+}
+class Admin extends Component<{}, CompState> {
+  state: CompState = {
+    newsList: [],
+  };
+  getList = async () => {
+    let newsList = await News.list();
+    this.setState({ newsList });
+  };
+  componentDidMount() {
+    this.getList();
+  }
+  onRemove = async (url) => {
+    await News.remove(url);
+    message.success("delete successfully");
+    this.getList();
+  };
   render() {
+    const { newsList } = this.state;
     return (
       <div className="admin-container">
-        {[0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => (
-          <div className="news-item" key={item}>
-            <div className="news-content">
-              This is a new about the Chrom cache control
-            </div>
-            <Button size="small" danger type="text">
-              Delete
-            </Button>
+        {newsList.map((item) => (
+          <div className="news-item" key={item.url}>
+            <div className="news-content">{item.name}</div>
+            <Popconfirm
+              title="Confirm to delete this news ?"
+              onConfirm={() => this.onRemove(item.url)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" icon={<DeleteOutlined />} danger type="text">
+                Delete
+              </Button>
+            </Popconfirm>
           </div>
         ))}
-        <Pagination className="list-pagination" defaultCurrent={1} total={30} />
       </div>
     );
   }

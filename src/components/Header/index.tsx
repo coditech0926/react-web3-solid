@@ -39,9 +39,9 @@ const Header = ({ webId }) => {
                   <Menu.Item>
                     <Link to="new">Post News</Link>
                   </Menu.Item>
-                  {/* <Menu.Item>
+                  <Menu.Item>
                     <Link to="/admin">Manage News</Link>
-                  </Menu.Item> */}
+                  </Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
