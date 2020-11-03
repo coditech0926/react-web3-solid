@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Avatar, Badge } from "antd";
+import { Avatar, Badge, Empty } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { News } from "../../services";
@@ -67,6 +67,7 @@ class List extends Component<CompProps, CompState> {
             </div>
           </Link>
         ))}
+        {filterList.length === 0 && <Empty description="No news " />}
       </div>
     );
   }
