@@ -15,6 +15,7 @@ interface CompState {
     author: string;
     articleBody: string;
     category: string;
+    commentCount: number;
   }[];
 }
 
@@ -61,7 +62,7 @@ class List extends Component<CompProps, CompState> {
               </div>
               <Badge
                 className="site-badge-count-109"
-                count={1}
+                count={item.commentCount}
                 style={{ backgroundColor: "#52c41a" }}
               />
             </div>

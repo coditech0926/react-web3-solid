@@ -1,22 +1,35 @@
 import Soukai from "soukai";
-import { News } from "../models";
+import { News, Comment } from "../models";
 import { SolidEngine } from "soukai-solid";
 import SolidAuthClient from "solid-auth-client";
 
 const datasets = "https://leeonfield.inrupt.net/test/news/";
+const commentSets = "https://leeonfield.inrupt.net/comments/";
 
 class NewsService {
   constructor() {
-    Soukai.loadModels({ News });
+    Soukai.loadModels({ News, Comment });
     Soukai.useEngine(
       new SolidEngine(SolidAuthClient.fetch.bind(SolidAuthClient))
     );
     News.at(datasets);
+    Comment.at(commentSets);
   }
   list = async (type?: string): Promise<any> => {
     let condition: {} = !type ? {} : { category: type };
     const list = await News.from(datasets).all(condition);
-    const data = list.map((item) => item.getAttributes());
+    const commentData = await Comment.all();
+    const commentList = commentData.map((item) => item.getAttributes());
+
+    const data = list.map((item) => {
+      let commentCount = commentList.filter(
+        (comment) => comment.source === item.url
+      ).length;
+      return {
+        commentCount,
+        ...item.getAttributes(),
+      };
+    });
     return data;
   };
 
