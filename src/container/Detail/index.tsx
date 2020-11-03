@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+import { Button, Tag } from "antd";
 import { CommentList } from "../../components";
 import { withRouter } from "react-router-dom";
 import { PaperClipOutlined } from "@ant-design/icons";
 import { RouteComponentProps } from "react-router";
+import moment from "moment";
 import * as qs from "query-string";
 import { News } from "../../services";
 import "./index.less";
@@ -36,23 +37,27 @@ class Detail extends Component<CompProps, CompState> {
   render() {
     const { source, detail } = this.state;
     const { webId } = this.props;
-    const { name, articleBody, category } = detail;
+    const { name, articleBody, category, createdAt } = detail;
 
     return (
       <div className="detail-container">
         <div className="detail-header">
           <h2 className="detail-title">{name}</h2>
           <div className="detail-info">
-            <div className="info-item">Leeon Lee</div>
+            <div className="info-item">
+              <span>Leeon</span>
+              <span>{moment(createdAt).format("MM-DD HH:mm")}</span>
+            </div>
+            <Tag color="#87d068">{category}</Tag>
           </div>
         </div>
         <div className="detail-content">{articleBody}</div>
 
-        <div className="detail-attachment">
+        {/* <div className="detail-attachment">
           <Button type="text" icon={<PaperClipOutlined />}>
             attachment.gz
           </Button>
-        </div>
+        </div> */}
         <CommentList webId={webId} source={source.news} />
       </div>
     );

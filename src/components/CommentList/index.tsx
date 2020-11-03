@@ -74,7 +74,7 @@ class CommentList extends Component<{ source: string; webId: string }> {
               avatar={
                 <Avatar
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png#"
-                  alt="Han Solo"
+                  alt={item.name}
                 />
               }
               content={<p>{item.description}</p>}
@@ -82,7 +82,7 @@ class CommentList extends Component<{ source: string; webId: string }> {
                 <Tooltip
                   title={moment(item.created).format("YYYY-MM-DD HH:mm:ss")}
                 >
-                  <span>{moment().fromNow()}</span>
+                  <span>{moment(item.created).format("MM-DD  HH:mm:ss")}</span>
                 </Tooltip>
               }
             />
