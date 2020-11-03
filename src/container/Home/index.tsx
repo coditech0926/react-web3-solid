@@ -8,11 +8,13 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 interface CompState {
   cateList: { url: string; name: string; description: string }[];
+  keyword: string;
 }
 
 class Home extends Component<{ webId: string }, CompState> {
   state: CompState = {
     cateList: [],
+    keyword: "",
   };
 
   getCateList = async () => {
@@ -21,13 +23,18 @@ class Home extends Component<{ webId: string }, CompState> {
       cateList,
     });
   };
+  onChangeKeyword = (keyword) => {
+    this.setState({
+      keyword,
+    });
+  };
 
   componentDidMount() {
     this.getCateList();
   }
 
   render() {
-    const { cateList } = this.state;
+    const { cateList, keyword } = this.state;
     return (
       <div className="home-container">
         <div className="action-container">
@@ -38,11 +45,14 @@ class Home extends Component<{ webId: string }, CompState> {
 
           <Search
             placeholder="search for news"
-            // onSearch={onSearch}
+            onChange={(e) => this.onChangeKeyword(e.target.value)}
             enterButton
           />
         </div>
         <Tabs
+          onChange={() => {
+            this.onChangeKeyword("");
+          }}
           tabBarExtraContent={
             <Tooltip title="Create new Category">
               <Link to="category">
@@ -52,7 +62,7 @@ class Home extends Component<{ webId: string }, CompState> {
           }
         >
           <TabPane tab="Recent">
-            <List type="recent" />
+            <List keyword={keyword} type="recent" />
           </TabPane>
           {cateList.map((cate) => (
             <TabPane
@@ -67,7 +77,7 @@ class Home extends Component<{ webId: string }, CompState> {
               }
               key={cate.url}
             >
-              <List type={cate.name} />
+              <List keyword={keyword} type={cate.name} />
             </TabPane>
           ))}
         </Tabs>

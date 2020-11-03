@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { News } from "../../services";
 import "./index.less";
 interface CompProps {
+  keyword: string;
   type: string;
 }
 interface CompState {
@@ -35,9 +36,13 @@ class List extends Component<CompProps, CompState> {
 
   render() {
     const { newsList } = this.state;
+    const { keyword } = this.props;
+    const filterList = newsList.filter(
+      (item) => item.name.indexOf(keyword) > -1
+    );
     return (
       <div className="news-list">
-        {newsList.map((item) => (
+        {filterList.map((item) => (
           <Link
             to={`/detail?news=${encodeURIComponent(item.url)}`}
             key={item.name}
