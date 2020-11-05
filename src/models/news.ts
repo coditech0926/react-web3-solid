@@ -16,6 +16,8 @@ export default class News extends SolidModel {
     author: FieldType.String,
     articleBody: FieldType.String,
     category: FieldType.String,
+    filename: FieldType.String,
+    fileurl: FieldType.String,
   };
 
   // public actions: WatchAction[] | undefined;

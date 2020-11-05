@@ -37,8 +37,16 @@ class Detail extends Component<CompProps, CompState> {
   render() {
     const { source, detail } = this.state;
     const { webId } = this.props;
-    const { name, articleBody, category, createdAt } = detail;
+    const {
+      name,
+      articleBody,
+      category,
+      createdAt,
+      filename,
+      fileurl,
+    } = detail;
 
+    console.log("----", detail);
     return (
       <div className="detail-container">
         <div className="detail-header">
@@ -53,11 +61,13 @@ class Detail extends Component<CompProps, CompState> {
         </div>
         <div className="detail-content">{articleBody}</div>
 
-        {/* <div className="detail-attachment">
-          <Button type="text" icon={<PaperClipOutlined />}>
-            attachment.gz
-          </Button>
-        </div> */}
+        {filename && (
+          <div className="detail-attachment">
+            <a href={fileurl} target="__blank">
+              <PaperClipOutlined /> {filename}
+            </a>
+          </div>
+        )}
         <CommentList webId={webId} source={source.news} />
       </div>
     );

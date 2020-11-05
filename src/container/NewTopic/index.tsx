@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Form, Input, Button, Select, Upload, message } from "antd";
-import { Category, News } from "../../services";
+import { Category, News, File } from "../../services";
 import { UploadOutlined } from "@ant-design/icons";
 import "./index.less";
 const { Option } = Select;
 
 interface CompState {
   cateList: { url: string; name: string; description: string }[];
+  fileList: Array<any>;
 }
 
 interface CompProps extends RouteComponentProps {
@@ -18,12 +19,20 @@ interface CompProps extends RouteComponentProps {
 class NewTopic extends Component<CompProps, CompState> {
   state: CompState = {
     cateList: [],
+    fileList: [],
   };
 
   onSave = async (values) => {
     const { webId } = this.props;
+    const { fileList } = this.state;
+    const { name: filename, url: fileurl } = fileList[0] || {
+      name: "",
+      url: "",
+    };
     let data = {
       ...values,
+      filename,
+      fileurl,
       author: webId,
     };
     await News.create(data);
@@ -39,6 +48,36 @@ class NewTopic extends Component<CompProps, CompState> {
   componentDidMount() {
     this.getCateList();
   }
+  upload = async (file) => {
+    const { fileList } = this.state;
+    this.setState({
+      fileList: [
+        {
+          uid: file.name,
+          name: file.name,
+          status: "uploading",
+        },
+      ],
+    });
+    let res = await File.upload(file);
+    let { url } = res;
+    if (url) {
+      this.setState({
+        fileList: [
+          {
+            uid: file.name,
+            name: file.name,
+            status: "done",
+            url,
+          },
+        ],
+      });
+    } else {
+      this.setState({
+        fileList: [],
+      });
+    }
+  };
 
   render() {
     const layout = {
@@ -55,24 +94,15 @@ class NewTopic extends Component<CompProps, CompState> {
         span: 16,
       },
     };
+
     const uploadProps = {
       name: "file",
-      action: "",
-      headers: {
-        authorization: "authorization-text",
-      },
-      onChange(info: any) {
-        if (info.file.status !== "uploading") {
-          console.log(info.file, info.fileList);
-        }
-        if (info.file.status === "done") {
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === "error") {
-          message.error(`${info.file.name} file upload failed.`);
-        }
+      beforeUpload: (file) => {
+        this.upload(file);
+        return false;
       },
     };
-    const { cateList } = this.state;
+    const { cateList, fileList } = this.state;
     return (
       <div className="create-news">
         <Form
@@ -129,7 +159,7 @@ class NewTopic extends Component<CompProps, CompState> {
           </Form.Item>
 
           <Form.Item label="Attachment" name="attachment">
-            <Upload {...uploadProps}>
+            <Upload {...uploadProps} fileList={fileList}>
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
             </Upload>
           </Form.Item>
