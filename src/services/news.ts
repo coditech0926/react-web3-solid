@@ -21,15 +21,17 @@ class NewsService {
     const commentData = await Comment.all();
     const commentList = commentData.map((item) => item.getAttributes());
 
-    const data = list.map((item) => {
-      let commentCount = commentList.filter(
-        (comment) => comment.source === item.url
-      ).length;
-      return {
-        commentCount,
-        ...item.getAttributes(),
-      };
-    });
+    const data = list
+      .map((item) => {
+        let commentCount = commentList.filter(
+          (comment) => comment.source === item.url
+        ).length;
+        return {
+          commentCount,
+          ...item.getAttributes(),
+        };
+      })
+      .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime());
     return data;
   };
 
