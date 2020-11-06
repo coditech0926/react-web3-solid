@@ -7,27 +7,18 @@ import {
   ControlOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Value, withWebId } from "@solid/react";
+import auth from "solid-auth-client";
+import { Value } from "@solid/react";
+import { withWebId } from "@inrupt/solid-react-components";
 
 import "./index.less";
 
 const Header = ({ webId }) => {
-  // const { thing, error } = useThing(
-  //   "https://leeonfield.inrupt.net/profile/card",
-  //   webId
-  // );
-  // if (error) console.log("error", error);
-  // console.log("---->>>>>", thing);
-  // useEffect(() => {
-  //   if (webId) {
-  //     (async () => {
-  //       console.log("==========", webId);
-  //       let profile = SolidData[webId];
-  //       const name = await profile.label;
-  //       console.log("==========", name);
-  //     })();
-  //   }
-  // }, [webId]);
+  const logout = async () => {
+    await auth.logout();
+    localStorage.removeItem("solid-auth-client");
+    window.location.reload();
+  };
 
   return (
     <div className="header">
@@ -53,11 +44,9 @@ const Header = ({ webId }) => {
                       Manage News
                     </Link>
                   </Menu.Item>
-                  <Menu.Item>
-                    <Link to="/admin">
-                      <LogoutOutlined />
-                      Logout
-                    </Link>
+                  <Menu.Item onClick={() => logout()}>
+                    <LogoutOutlined />
+                    Logout
                   </Menu.Item>
                 </Menu>
               }

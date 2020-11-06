@@ -10,7 +10,7 @@ class File {
 
   upload = async (file: any, url?: string) => {
     try {
-      let containerUrl = await getContainerUrl("/attachment/");
+      let containerUrl = await getContainerUrl("/public/attachment/");
       const res = await this.fileClient.putFile(
         url || `${containerUrl}${+new Date()}-${file.name}`,
         file,

@@ -13,8 +13,7 @@ export default class Comment extends SolidModel {
   public static rdfsClasses = ["schema:Comment"];
 
   public static fields = {
-    description: FieldType.String,
-    profile: FieldType.String,
-    source: FieldType.String,
+    commentUrl: FieldType.String,
+    newsUrl: FieldType.String,
   };
 }

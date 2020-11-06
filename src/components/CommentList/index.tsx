@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Comment, Tooltip, Avatar, Input, Button, message } from "antd";
-import { Comment as CommentService } from "../../services";
+import { Comment as CommentService, PublicComment } from "../../services";
 import moment from "moment";
 import "./index.less";
 
@@ -26,9 +26,16 @@ class CommentList extends Component<{ source: string; webId: string }> {
 
   getComment = async () => {
     const { source } = this.props;
-    let commentList = await CommentService.list(source);
+    let commentList = await PublicComment.list(source);
+
+    let commentContent: Array<any> = [];
+    for (const iterator of commentList) {
+      let data = await CommentService.detail(iterator.commentUrl);
+      commentContent.push(data);
+    }
+
     this.setState({
-      commentList,
+      commentList: commentContent,
     });
   };
 
@@ -45,13 +52,15 @@ class CommentList extends Component<{ source: string; webId: string }> {
     const { source, webId } = this.props;
     const data = {
       description: commentIn,
-      author: {
-        name: "Leeon",
-        profile: webId,
-      },
+      profile: webId,
       source,
     };
-    await CommentService.create(data);
+    let res = await CommentService.create(data);
+
+    await PublicComment.create({
+      commentUrl: res.url,
+      newsUrl: source,
+    });
 
     message.success("comment successfully");
     this.setState({
@@ -63,6 +72,7 @@ class CommentList extends Component<{ source: string; webId: string }> {
 
   render() {
     const { commentList, commentIn } = this.state;
+
     return (
       <div className="comment-list">
         <div className="comment-header">Comment</div>

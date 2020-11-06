@@ -1,36 +1,45 @@
 import Soukai from "soukai";
-import { Comment } from "../models";
+import { Comment as CommentModel } from "../models";
 import { SolidEngine } from "soukai-solid";
 import SolidAuthClient from "solid-auth-client";
+import { getContainerUrl } from "./utils";
 
-const datasets = "https://leeonfield.inrupt.net/comments/";
+const COMMENT_PATH = "/public/comments/";
 
-class Cate {
+class Comment {
   constructor() {
-    Soukai.loadModels({ Comment });
+    Soukai.loadModels({ CommentModel });
     Soukai.useEngine(
       new SolidEngine(SolidAuthClient.fetch.bind(SolidAuthClient))
     );
-    Comment.at(datasets);
   }
   list = async (source: string): Promise<any> => {
-    const list = await Comment.from(datasets).all({
-      source,
-    });
-    const data = list.map((item) => item.getAttributes());
-    return data;
+    return {};
   };
-
+  detail = async (url: string) => {
+    if (!url) return;
+    let containerUrl = await getContainerUrl(COMMENT_PATH, url);
+    let list = await CommentModel.at(containerUrl).all();
+    for (const iterator of list) {
+      if (iterator.getAttributes().url === url) {
+        return iterator.getAttributes();
+      }
+    }
+    return {};
+  };
   create = async (values: {
-    author: {
-      name: string;
-      profile: string;
-    };
+    profile: string;
     source: string;
     description: string;
   }) => {
-    await Comment.create({ ...values, created: new Date() });
+    let containerUrl = await getContainerUrl(COMMENT_PATH);
+
+    let res = await CommentModel.at(containerUrl).create({
+      ...values,
+      created: new Date(),
+    });
+    return res.getAttributes();
   };
 }
 
-export default new Cate();
+export default new Comment();

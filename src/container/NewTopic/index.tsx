@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Form, Input, Button, Select, Upload, message } from "antd";
-import { Category, News, File } from "../../services";
+import { Category, News, File, PublicNews } from "../../services";
 import { UploadOutlined } from "@ant-design/icons";
 import solidData from "@solid/query-ldflex";
 import "./index.less";
@@ -36,7 +36,15 @@ class NewTopic extends Component<CompProps, CompState> {
       fileurl,
       author: webId,
     };
-    await News.create(data);
+
+    const res = await News.create(data);
+    const { name, category } = values;
+    await PublicNews.create({
+      name,
+      category,
+      author: webId,
+      newsUrl: res.url,
+    });
     message.success("Add successfully !");
     this.props.history.push("/");
   };

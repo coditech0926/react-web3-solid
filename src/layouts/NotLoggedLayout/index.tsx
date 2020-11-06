@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { withWebId } from "@inrupt/solid-react-components";
+// import { withWebId } from "@solid/react";
 
 const NotLoggedInLayout = (props) => {
   const { component: Component, webId, ...rest } = props;
-
   return !webId ? (
     <Route
       {...rest}

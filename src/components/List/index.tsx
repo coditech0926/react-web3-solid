@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Avatar, Badge, Empty } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { News } from "../../services";
+import { PublicNews } from "../../services";
 import "./index.less";
 interface CompProps {
   keyword: string;
@@ -10,10 +10,9 @@ interface CompProps {
 }
 interface CompState {
   newsList: {
-    url: string;
+    newsUrl: string;
     name: string;
     author: string;
-    articleBody: string;
     category: string;
     commentCount: number;
   }[];
@@ -26,7 +25,9 @@ class List extends Component<CompProps, CompState> {
 
   getNews = async () => {
     const { type } = this.props;
-    let newsList = await News.list(type === "recent" ? "" : type);
+    console.log("---------->>>>>>", type);
+    let newsList = await PublicNews.list(type === "recent" ? "" : type);
+    console.log(">>>>>>>>>>>>>>", newsList);
     this.setState({
       newsList,
     });
@@ -34,10 +35,18 @@ class List extends Component<CompProps, CompState> {
   componentDidMount() {
     this.getNews();
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("--------", this.props.type);
+  //   if (this.props.type !== prevProps.type) {
+  //     this.getNews();
+  //   }
+  // }
 
   render() {
     const { newsList } = this.state;
-    const { keyword } = this.props;
+    const { keyword = "" } = this.props;
+    console.log("---》》》》》》》》》------->>>>>>", newsList);
+
     const filterList = newsList.filter(
       (item) => item.name.indexOf(keyword) > -1
     );
@@ -45,7 +54,7 @@ class List extends Component<CompProps, CompState> {
       <div className="news-list">
         {filterList.map((item) => (
           <Link
-            to={`/detail?news=${encodeURIComponent(item.url)}`}
+            to={`/detail?news=${encodeURIComponent(item.newsUrl)}`}
             key={item.name}
           >
             <div className="news-item">

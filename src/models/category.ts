@@ -14,15 +14,4 @@ export default class Category extends SolidModel {
     name: FieldType.String,
     description: FieldType.String,
   };
-
-  // public actions: WatchAction[] | undefined;
-  // public relatedActions: SolidHasManyRelation<
-  //   Movie,
-  //   WatchAction,
-  //   typeof WatchAction
-  // >;
-
-  // public actionsRelationship(): Relation {
-  //   return this.hasMany(WatchAction, "object");
-  // }
 }

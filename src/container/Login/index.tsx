@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Button } from "antd";
 import auth from "solid-auth-client";
+import { Button } from "antd";
+import { LoginOutlined } from "@ant-design/icons";
 class Login extends Component {
   goLogin = async () => {
     try {
@@ -21,10 +22,17 @@ class Login extends Component {
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: 100,
+          alignItems: "center",
+          minHeight: "400px",
         }}
       >
-        <Button onClick={() => this.goLogin()}>Login</Button>
+        <Button
+          type="primary"
+          onClick={() => this.goLogin()}
+          icon={<LoginOutlined />}
+        >
+          Login with inrupt.net
+        </Button>
       </div>
     );
   }

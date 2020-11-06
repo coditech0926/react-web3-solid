@@ -1,36 +1,25 @@
 import Soukai from "soukai";
-import { News, Comment } from "../models";
+import { News } from "../models";
 import { SolidEngine } from "soukai-solid";
 import SolidAuthClient from "solid-auth-client";
+import { getContainerUrl } from "./utils";
 
-const datasets = "https://leeonfield.inrupt.net/test/news/";
-const commentSets = "https://leeonfield.inrupt.net/comments/";
+const NEWS_PATH = "/public/news/";
 
 class NewsService {
   constructor() {
-    Soukai.loadModels({ News, Comment });
+    Soukai.loadModels({ News });
     Soukai.useEngine(
       new SolidEngine(SolidAuthClient.fetch.bind(SolidAuthClient))
     );
-    News.at(datasets);
-    Comment.at(commentSets);
   }
   list = async (type?: string): Promise<any> => {
+    let containerUrl = await getContainerUrl(NEWS_PATH);
     let condition: {} = !type ? {} : { category: type };
-    const list = await News.from(datasets).all(condition);
-    const commentData = await Comment.all();
-    const commentList = commentData.map((item) => item.getAttributes());
+    const list = await News.from(containerUrl).all(condition);
 
     const data = list
-      .map((item) => {
-        let commentCount = commentList.filter(
-          (comment) => comment.source === item.url
-        ).length;
-        return {
-          commentCount,
-          ...item.getAttributes(),
-        };
-      })
+      .map((item) => item.getAttributes())
       .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime());
     return data;
   };
@@ -40,11 +29,14 @@ class NewsService {
     author: string;
     articleBody: string;
   }) => {
-    await News.create(values);
+    let containerUrl = await getContainerUrl(NEWS_PATH);
+    let res = await News.at(containerUrl).create(values);
+    return res.getAttributes();
   };
   detail = async (url: string) => {
     if (!url) return;
-    let list = await News.all();
+    let containerUrl = await getContainerUrl(NEWS_PATH, url);
+    let list = await News.at(containerUrl).all();
     for (const iterator of list) {
       if (iterator.getAttributes().url === url) {
         return iterator.getAttributes();
@@ -53,7 +45,8 @@ class NewsService {
     return {};
   };
   remove = async (url: string) => {
-    let list = await News.all();
+    let containerUrl = await getContainerUrl(NEWS_PATH, url);
+    let list = await News.at(containerUrl).all();
     for (const iterator of list) {
       if (iterator.getAttributes().url === url) {
         await iterator.delete();
