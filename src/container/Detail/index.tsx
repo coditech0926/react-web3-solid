@@ -7,6 +7,7 @@ import { RouteComponentProps } from "react-router";
 import moment from "moment";
 import * as qs from "query-string";
 import { News } from "../../services";
+import { Value } from "@solid/react";
 import "./index.less";
 
 interface CompProps extends RouteComponentProps {
@@ -15,12 +16,14 @@ interface CompProps extends RouteComponentProps {
 interface CompState {
   source: any;
   detail: any;
+  author: string;
 }
 
 class Detail extends Component<CompProps, CompState> {
   state: CompState = {
     source: qs.parse(window.location.search),
     detail: {},
+    author: "",
   };
   getDetail = async () => {
     const url: any = qs.parse(window.location.search).news;
@@ -44,6 +47,7 @@ class Detail extends Component<CompProps, CompState> {
       createdAt,
       filename,
       fileurl,
+      author,
     } = detail;
 
     return (
@@ -52,10 +56,13 @@ class Detail extends Component<CompProps, CompState> {
           <h2 className="detail-title">{name}</h2>
           <div className="detail-info">
             <div className="info-item">
-              <span>Leeon</span>
+              {author && (
+                <span>
+                  Author: <Value src={`[${author}].name`}></Value>
+                </span>
+              )}
               <span>{moment(createdAt).format("MM-DD HH:mm")}</span>
             </div>
-            <Tag color="#87d068">{category}</Tag>
           </div>
         </div>
         <div className="detail-content">{articleBody}</div>
@@ -67,6 +74,9 @@ class Detail extends Component<CompProps, CompState> {
             </a>
           </div>
         )}
+
+        <Tag color="#87d068">#{category}</Tag>
+
         <CommentList webId={webId} source={source.news} />
       </div>
     );
