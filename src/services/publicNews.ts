@@ -34,7 +34,6 @@ class PublicNewsService {
         };
       })
       .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime());
-    console.log("++++++++", data);
     return data;
   };
 

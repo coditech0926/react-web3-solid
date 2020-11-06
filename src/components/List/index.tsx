@@ -25,9 +25,7 @@ class List extends Component<CompProps, CompState> {
 
   getNews = async () => {
     const { type } = this.props;
-    console.log("---------->>>>>>", type);
     let newsList = await PublicNews.list(type === "recent" ? "" : type);
-    console.log(">>>>>>>>>>>>>>", newsList);
     this.setState({
       newsList,
     });
@@ -35,17 +33,10 @@ class List extends Component<CompProps, CompState> {
   componentDidMount() {
     this.getNews();
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("--------", this.props.type);
-  //   if (this.props.type !== prevProps.type) {
-  //     this.getNews();
-  //   }
-  // }
 
   render() {
     const { newsList } = this.state;
     const { keyword = "" } = this.props;
-    console.log("---》》》》》》》》》------->>>>>>", newsList);
 
     const filterList = newsList.filter(
       (item) => item.name.indexOf(keyword) > -1

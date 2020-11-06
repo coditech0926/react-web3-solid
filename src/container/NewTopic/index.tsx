@@ -55,15 +55,13 @@ class NewTopic extends Component<CompProps, CompState> {
     });
   };
   getProfile = async () => {
-    const { webId } = this.props;
-    let Profile = solidData[webId];
-    console.log("-----", Profile);
-    let res = await Profile.name;
-    console.log("-000000", res);
+    // const { webId } = this.props;
+    // let Profile = solidData[webId];
+    // let res = await Profile.name;
   };
   componentDidMount() {
     this.getCateList();
-    this.getProfile();
+    // this.getProfile();
   }
   upload = async (file) => {
     this.setState({
