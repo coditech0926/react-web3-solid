@@ -1,8 +1,13 @@
 import React from "react"; //  useCallback, useEffect, Component
 import { Link } from "react-router-dom";
 import { Avatar, Menu, Dropdown } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
-import { withWebId } from "@inrupt/solid-react-components";
+import { EditOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  ControlOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import { Value, withWebId } from "@solid/react";
 
 import "./index.less";
 
@@ -37,16 +42,38 @@ const Header = ({ webId }) => {
               overlay={
                 <Menu>
                   <Menu.Item>
-                    <Link to="new">Post News</Link>
+                    <Link to="new">
+                      <EditOutlined />
+                      Post News
+                    </Link>
                   </Menu.Item>
                   <Menu.Item>
-                    <Link to="/admin">Manage News</Link>
+                    <Link to="/admin">
+                      <ControlOutlined />
+                      Manage News
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to="/admin">
+                      <LogoutOutlined />
+                      Logout
+                    </Link>
                   </Menu.Item>
                 </Menu>
               }
               placement="bottomLeft"
             >
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              <span className="header-user-info">
+                <Avatar
+                  src={
+                    Value({ src: `[${webId}].vcard_hasPhoto` }) ||
+                    "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                  }
+                />
+                <span className="header-user-name">
+                  {Value({ src: `[${webId}].name` })}
+                </span>
+              </span>
             </Dropdown>
           </div>
         )}

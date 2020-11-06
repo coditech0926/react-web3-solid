@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router";
 import { Form, Input, Button, Select, Upload, message } from "antd";
 import { Category, News, File } from "../../services";
 import { UploadOutlined } from "@ant-design/icons";
+import solidData from "@solid/query-ldflex";
 import "./index.less";
 const { Option } = Select;
 
@@ -45,8 +46,16 @@ class NewTopic extends Component<CompProps, CompState> {
       cateList,
     });
   };
+  getProfile = async () => {
+    const { webId } = this.props;
+    let Profile = solidData[webId];
+    console.log("-----", Profile);
+    let res = await Profile.name;
+    console.log("-000000", res);
+  };
   componentDidMount() {
     this.getCateList();
+    this.getProfile();
   }
   upload = async (file) => {
     this.setState({
