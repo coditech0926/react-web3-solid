@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Tag } from "antd";
+import { Tag } from "antd";
 import { CommentList } from "../../components";
 import { withRouter } from "react-router-dom";
 import { PaperClipOutlined } from "@ant-design/icons";
@@ -46,7 +46,6 @@ class Detail extends Component<CompProps, CompState> {
       fileurl,
     } = detail;
 
-    console.log("----", detail);
     return (
       <div className="detail-container">
         <div className="detail-header">

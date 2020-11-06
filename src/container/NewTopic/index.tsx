@@ -49,7 +49,6 @@ class NewTopic extends Component<CompProps, CompState> {
     this.getCateList();
   }
   upload = async (file) => {
-    const { fileList } = this.state;
     this.setState({
       fileList: [
         {
