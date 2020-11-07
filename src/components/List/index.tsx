@@ -1,3 +1,6 @@
+/**
+ * List 组件用户展示 news 列表
+ */
 import React, { Component } from "react";
 import { Badge, Empty } from "antd";
 import { Link } from "react-router-dom";
@@ -21,6 +24,9 @@ interface CompState {
   current: number;
 }
 
+// 该组件会传入 keyword 和 type 参数
+// keyword 用于用户搜索关键字筛选
+// type 用户分类切换
 class List extends Component<CompProps, CompState> {
   state: CompState = {
     newsList: [],

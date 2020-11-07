@@ -1,3 +1,6 @@
+/**
+ * 登录页面
+ */
 import React, { Component } from "react";
 import auth from "solid-auth-client";
 import { Button } from "antd";

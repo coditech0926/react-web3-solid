@@ -1,3 +1,6 @@
+/**
+ * 新建分类页面
+ */
 import React, { Component } from "react";
 import { Form, Input, Button, message } from "antd";
 import { Category } from "../../services";
@@ -6,6 +9,7 @@ import { RouteComponentProps } from "react-router";
 import "./index.less";
 
 class NewCate extends Component<RouteComponentProps> {
+  // 保存分类
   onSave = async (values) => {
     await Category.create(values);
     message.success("save successfully !");

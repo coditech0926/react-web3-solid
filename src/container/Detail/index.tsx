@@ -1,3 +1,7 @@
+/**
+ * 详情页
+ * 展示 news 详情
+ */
 import React, { Component } from "react";
 import { Tag } from "antd";
 import { CommentList } from "../../components";
@@ -25,6 +29,7 @@ class Detail extends Component<CompProps, CompState> {
     detail: {},
     author: "",
   };
+  // 获取 news 详情
   getDetail = async () => {
     const url: any = qs.parse(window.location.search).news;
     const detail = await News.detail(url);

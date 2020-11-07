@@ -1,18 +1,11 @@
+/**
+ * 包裹登录后的页面以及路由
+ */
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import {
-  withAuthorization,
-  //AppPermission,
-  //AccessControlList,
-} from "@inrupt/solid-react-components";
+import { withAuthorization } from "@inrupt/solid-react-components";
 
 const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
-  // const checkPermissions = useCallback(async () => {}, [webId]);
-
-  // useEffect(() => {
-  //   if (webId) checkPermissions();
-  // }, [webId]);
-
   return (
     <React.Fragment>
       <Route

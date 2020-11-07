@@ -1,3 +1,6 @@
+/**
+ * 包裹登录前的页面：登录页
+ */
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { withWebId } from "@inrupt/solid-react-components";

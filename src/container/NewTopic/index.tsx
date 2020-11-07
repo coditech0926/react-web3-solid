@@ -1,10 +1,13 @@
+/**
+ * 新建 news
+ * 包括选择分类、输入 title、news detail、上传附件
+ */
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Form, Input, Button, Select, Upload, message } from "antd";
 import { Category, News, File, PublicNews } from "../../services";
 import { UploadOutlined } from "@ant-design/icons";
-import solidData from "@solid/query-ldflex";
 import "./index.less";
 const { Option } = Select;
 
@@ -23,6 +26,7 @@ class NewTopic extends Component<CompProps, CompState> {
     fileList: [],
   };
 
+  // 保存 news
   onSave = async (values) => {
     const { webId } = this.props;
     const { fileList } = this.state;
@@ -48,21 +52,20 @@ class NewTopic extends Component<CompProps, CompState> {
     message.success("Add successfully !");
     this.props.history.push("/");
   };
+
+  // 获取分类列表
   getCateList = async () => {
     let cateList = await Category.list();
     this.setState({
       cateList,
     });
   };
-  getProfile = async () => {
-    // const { webId } = this.props;
-    // let Profile = solidData[webId];
-    // let res = await Profile.name;
-  };
+
   componentDidMount() {
     this.getCateList();
-    // this.getProfile();
   }
+
+  // 上传附件
   upload = async (file) => {
     this.setState({
       fileList: [
@@ -126,7 +129,6 @@ class NewTopic extends Component<CompProps, CompState> {
             remember: true,
           }}
           onFinish={this.onSave}
-          // onFinishFailed={onFinishFailed}
         >
           <Form.Item
             label="Category"

@@ -1,4 +1,9 @@
-import React from "react"; //  useCallback, useEffect, Component
+/**
+ * Header 组件用于页面 header 内容展示
+ * - 用户状态
+ * - 用户操作：新建 news、管理 news、退出登录
+ */
+import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "antd";
 import { EditOutlined } from "@ant-design/icons";

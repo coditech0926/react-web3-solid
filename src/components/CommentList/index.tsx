@@ -1,5 +1,9 @@
+/**
+ * 评论组件，用于详情页中评论内容展示
+ * 由 评论列表 以及 评论区 两部分组成
+ */
 import React, { Component } from "react";
-import { Comment, Tooltip, Avatar, Input, Button, message } from "antd";
+import { Comment, Tooltip, Input, Button, message } from "antd";
 import { Comment as CommentService, PublicComment } from "../../services";
 import { Value } from "@solid/react";
 import { SolidAvatar } from "../../components";
@@ -10,6 +14,9 @@ const { TextArea } = Input;
 interface CompProps {
   type: string;
 }
+// 组件参数包括 source 和 webId
+// source 是 news 的 url
+// webId 用户用户评论
 class CommentList extends Component<{ source: string; webId: string }> {
   state: {
     commentList: {
@@ -26,6 +33,7 @@ class CommentList extends Component<{ source: string; webId: string }> {
     commentIn: "",
   };
 
+  // 获取评论内容
   getComment = async () => {
     const { source } = this.props;
     let commentList = await PublicComment.list(source);
@@ -49,6 +57,7 @@ class CommentList extends Component<{ source: string; webId: string }> {
       commentIn: val,
     });
   };
+  // 发表评论
   onComment = async () => {
     const { commentIn } = this.state;
     const { source, webId } = this.props;

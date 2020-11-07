@@ -1,3 +1,6 @@
+/**
+ * 管理 news
+ */
 import React, { Component } from "react";
 import { Button, message, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -16,6 +19,7 @@ class Admin extends Component<{}, CompState> {
   state: CompState = {
     newsList: [],
   };
+  // 获取当前用户所有发表的 news
   getList = async () => {
     let newsList = await News.list();
     this.setState({ newsList });
@@ -23,6 +27,7 @@ class Admin extends Component<{}, CompState> {
   componentDidMount() {
     this.getList();
   }
+  // 删除对应的 news
   onRemove = async (url) => {
     await News.remove(url);
     await PublicNews.remove(url);
