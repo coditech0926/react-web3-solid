@@ -17,7 +17,7 @@ const Header = ({ webId }) => {
   const logout = async () => {
     await auth.logout();
     localStorage.removeItem("solid-auth-client");
-    window.location.reload();
+    window.location.href = window.location.origin + "/login";
   };
 
   return (

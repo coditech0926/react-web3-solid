@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Comment, Tooltip, Avatar, Input, Button, message } from "antd";
 import { Comment as CommentService, PublicComment } from "../../services";
+import { Value } from "@solid/react";
+import { SolidAvatar } from "../../components";
 import moment from "moment";
 import "./index.less";
 
@@ -72,7 +74,6 @@ class CommentList extends Component<{ source: string; webId: string }> {
 
   render() {
     const { commentList, commentIn } = this.state;
-
     return (
       <div className="comment-list">
         <div className="comment-header">Comment</div>
@@ -80,13 +81,8 @@ class CommentList extends Component<{ source: string; webId: string }> {
           {commentList.map((item) => (
             <Comment
               key={item.url}
-              author={<span>{item.name}</span>}
-              avatar={
-                <Avatar
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png#"
-                  alt={item.name}
-                />
-              }
+              author={<Value src={`[${item.profile}].name`}></Value>}
+              avatar={<SolidAvatar src={item.profile} />}
               content={<p>{item.description}</p>}
               datetime={
                 <Tooltip
