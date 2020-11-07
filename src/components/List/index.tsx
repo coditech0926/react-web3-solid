@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PublicNews } from "../../services";
 import { Value } from "@solid/react";
 import { SolidAvatar } from "../../components";
+import { Pagination } from "antd";
 import "./index.less";
 interface CompProps {
   keyword: string;
@@ -17,11 +18,13 @@ interface CompState {
     category: string;
     commentCount: number;
   }[];
+  current: number;
 }
 
 class List extends Component<CompProps, CompState> {
   state: CompState = {
     newsList: [],
+    current: 1,
   };
 
   getNews = async () => {
@@ -34,17 +37,30 @@ class List extends Component<CompProps, CompState> {
   componentDidMount() {
     this.getNews();
   }
+  onPageChange = (current) => {
+    this.setState({
+      current,
+    });
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.keyword !== prevProps.keyword) {
+      this.setState({
+        current: 1,
+      });
+    }
+  }
 
   render() {
-    const { newsList } = this.state;
+    const { newsList, current } = this.state;
     const { keyword = "" } = this.props;
 
     const filterList = newsList.filter(
       (item) => item.name.indexOf(keyword) > -1
     );
+    const sliceList = filterList.slice((current - 1) * 10, current * 10);
     return (
       <div className="news-list">
-        {filterList.map((item) => (
+        {sliceList.map((item) => (
           <Link
             to={`/detail?news=${encodeURIComponent(item.newsUrl)}`}
             key={item.name}
@@ -68,7 +84,19 @@ class List extends Component<CompProps, CompState> {
             </div>
           </Link>
         ))}
-        {filterList.length === 0 && <Empty description="No news " />}
+        {filterList.length === 0 ? (
+          <Empty description="No news " />
+        ) : (
+          <Pagination
+            pageSize={10}
+            defaultCurrent={current}
+            total={newsList.length}
+            onChange={this.onPageChange}
+            style={{
+              marginTop: 20,
+            }}
+          />
+        )}
       </div>
     );
   }
