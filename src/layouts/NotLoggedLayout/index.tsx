@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { withWebId } from "@inrupt/solid-react-components";
+// import { withWebId } from "@inrupt/solid-react-components";
 
 const NotLoggedInLayout = (props) => {
   const { component: Component, webId, ...rest } = props;
@@ -14,4 +14,4 @@ const NotLoggedInLayout = (props) => {
   );
 };
 
-export default withWebId(NotLoggedInLayout);
+export default NotLoggedInLayout;

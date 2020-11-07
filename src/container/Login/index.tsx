@@ -7,11 +7,15 @@ class Login extends Component {
     try {
       const selectedProvider = "https://inrupt.net/auth";
       let callbackUri = `${window.location.origin}/`;
+      const session = await auth.currentSession();
+      if (!session) {
+        localStorage.removeItem("solid-auth-client");
 
-      await auth.login(selectedProvider, {
-        callbackUri,
-        storage: localStorage,
-      });
+        await auth.login(selectedProvider, {
+          callbackUri,
+          storage: localStorage,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
