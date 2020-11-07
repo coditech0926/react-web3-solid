@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, message, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { News } from "../../services";
+import { News, PublicNews } from "../../services";
 import "./index.less";
 interface CompState {
   newsList: {
@@ -25,6 +25,7 @@ class Admin extends Component<{}, CompState> {
   }
   onRemove = async (url) => {
     await News.remove(url);
+    await PublicNews.remove(url);
     message.success("delete successfully");
     this.getList();
   };

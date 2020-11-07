@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Avatar, Badge, Empty } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Badge, Empty } from "antd";
 import { Link } from "react-router-dom";
 import { PublicNews } from "../../services";
+import { Value } from "@solid/react";
+import { SolidAvatar } from "../../components";
 import "./index.less";
 interface CompProps {
   keyword: string;
@@ -49,16 +50,15 @@ class List extends Component<CompProps, CompState> {
             key={item.name}
           >
             <div className="news-item">
-              {/* <Avatar
-                style={{ backgroundColor: "#87d068" }}
-                icon={<UserOutlined />}
-              /> */}
+              <SolidAvatar src={item.author}></SolidAvatar>
               <div className="news-content">
                 <div className="desc">{item.name}</div>
-                {/* <div className="news-info">
-                  <strong className="author">Leeon</strong>
-                  <div className="time">May '19</div>
-                </div> */}
+                <div className="news-info">
+                  <strong className="author">
+                    <Value src={`[${item.author}].name`}></Value>
+                  </strong>
+                  {/* <div className="time">May '19</div> */}
+                </div>
               </div>
               <Badge
                 className="site-badge-count-109"

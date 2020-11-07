@@ -1,6 +1,6 @@
 import React from "react"; //  useCallback, useEffect, Component
 import { Link } from "react-router-dom";
-import { Avatar, Menu, Dropdown } from "antd";
+import { Menu, Dropdown } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import {
   HomeOutlined,
@@ -10,6 +10,7 @@ import {
 import auth from "solid-auth-client";
 import { Value } from "@solid/react";
 import { withWebId } from "@inrupt/solid-react-components";
+import { SolidAvatar } from "../../components";
 
 import "./index.less";
 
@@ -53,12 +54,7 @@ const Header = ({ webId }) => {
               placement="bottomLeft"
             >
               <span className="header-user-info">
-                <Avatar
-                  src={
-                    Value({ src: `[${webId}].vcard_hasPhoto` }) ||
-                    "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  }
-                />
+                <SolidAvatar src={webId}></SolidAvatar>
                 <span className="header-user-name">
                   {Value({ src: `[${webId}].name` })}
                 </span>

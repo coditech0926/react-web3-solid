@@ -4,7 +4,6 @@ import { withWebId } from "@inrupt/solid-react-components";
 
 const NotLoggedInLayout = (props) => {
   const { component: Component, webId, ...rest } = props;
-  console.log("-------->", webId);
   return !webId ? (
     <Route
       {...rest}
