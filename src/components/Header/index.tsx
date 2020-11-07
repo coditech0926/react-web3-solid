@@ -2,16 +2,12 @@ import React from "react"; //  useCallback, useEffect, Component
 import { Link } from "react-router-dom";
 import { Menu, Dropdown } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import {
-  HomeOutlined,
-  ControlOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { ControlOutlined, LogoutOutlined } from "@ant-design/icons";
 import auth from "solid-auth-client";
 import { Value } from "@solid/react";
 import { withWebId } from "@inrupt/solid-react-components";
 import { SolidAvatar } from "../../components";
-
+import ekseliLogo from "./ekseli.png";
 import "./index.less";
 
 const Header = ({ webId }) => {
@@ -25,7 +21,7 @@ const Header = ({ webId }) => {
     <div className="header">
       <div className="header-content">
         <Link to="/">
-          <HomeOutlined /> &nbsp; Home
+          <img src={ekseliLogo} className="home-logo" alt="" />
         </Link>
 
         {webId && (
