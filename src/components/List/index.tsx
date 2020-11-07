@@ -90,7 +90,7 @@ class List extends Component<CompProps, CompState> {
           <Pagination
             pageSize={10}
             defaultCurrent={current}
-            total={newsList.length}
+            total={filterList.length}
             onChange={this.onPageChange}
             style={{
               marginTop: 20,
